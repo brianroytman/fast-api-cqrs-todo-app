@@ -1,0 +1,35 @@
+# Ignore Python bytecode files
+*.py[cod]
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore environment and package files
+.env
+*.venv
+*.egg-info/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.log
+*.pot
+*.pyc
+
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ignore MacOS specific files
+.DS_Store
+
+# Ignore Visual Studio Code specific files
+.vscode/
+
