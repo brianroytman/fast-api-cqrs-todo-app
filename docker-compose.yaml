@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  user_command:
+    build:
+      context: ./user_command
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL_WRITE: postgresql+asyncpg://postgres:BroytPGDB123!!@write-db:5432/command_db
+      DATABASE_URL_READ: postgresql+asyncpg://postgres:BroytPGDB123!!@read-db:5432/query_db
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq/
+    env_file:
+      - .env
+    depends_on:
+      - write-db
+      - read-db
+      - rabbitmq
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  write-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: command_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: BroytPGDB123!!
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  read-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: query_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: BroytPGDB123!!
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:latest
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
