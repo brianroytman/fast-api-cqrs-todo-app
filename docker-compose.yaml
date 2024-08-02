@@ -8,7 +8,7 @@ services:
     environment:
       DATABASE_URL_WRITE: postgresql+asyncpg://postgres:BroytPGDB123!!@write-db:5432/command_db
       DATABASE_URL_READ: postgresql+asyncpg://postgres:BroytPGDB123!!@read-db:5432/query_db
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq/
+      RABBITMQ_URL: amqp://rabbitmq:5672/
     env_file:
       - .env
     depends_on:
@@ -27,7 +27,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: BroytPGDB123!!
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata-write:/var/lib/postgresql/data
     networks:
       - app-network
 
@@ -38,12 +38,15 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: BroytPGDB123!!
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata-read:/var/lib/postgresql/data
     networks:
       - app-network
 
   rabbitmq:
-    image: rabbitmq:latest
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - app-network
 
@@ -52,4 +55,5 @@ networks:
     driver: bridge
 
 volumes:
-  pgdata:
+  pgdata-write:
+  pgdata-read:

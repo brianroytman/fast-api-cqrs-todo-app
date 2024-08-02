@@ -1,9 +1,9 @@
 import json
 from sqlalchemy.ext.asyncio import AsyncSession
-from schemas.user_schemas import UserCreateModel, UserUpdateModel
-from models.user_model import User
-from repositories.user_repository import UserRepository
-from services.rabbitmq_service import RabbitMQService
+from app.schemas.user_schemas import UserCreateModel, UserUpdateModel
+from app.models.user_model import User
+from app.repositories.user_repository import UserRepository
+from app.services.rabbitmq_service import RabbitMQService
 
 class UserCommandService:
     def __init__(self):

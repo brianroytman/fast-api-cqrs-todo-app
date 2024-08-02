@@ -1,6 +1,8 @@
-fastapi
+fastapi==0.95.1
 uvicorn
-sqlalchemy
+SQLAlchemy>=1.4
 asyncpg
 pydantic
 aio_pika
+aio-pika
+alembic
